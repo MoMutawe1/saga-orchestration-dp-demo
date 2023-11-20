@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    function:
+      definition: supplier;consumer
+    stream:
+      bindings:
+        supplier-out-0:
+          destination: order-created
+        consumer-in-0:
+          destination: order-updated
+---
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
+    username: root
+    password: MySqlPass*
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: true
+  application:
+    name: ORDER-SERVICE
